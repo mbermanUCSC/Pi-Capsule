@@ -98,6 +98,7 @@ body {
     font-size: 18px;
     /* turn off resizing */
     resize: none;
+    font-family: 'NASA21';
 }
 
 .entry button{
