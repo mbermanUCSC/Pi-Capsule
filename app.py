@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from datetime import datetime
 import subprocess
 
@@ -36,6 +36,13 @@ def reboot():
     except subprocess.CalledProcessError:
         return jsonify(success=False, message="Failed to reboot."), 500
 
+# print the note
+@app.route('/entry', methods=['POST'])
+def entry():
+    entry = request.json['entry']
+    id = request.json['id']
+    print(entry, id)
+    return jsonify(success=True, message="Entry saved.")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

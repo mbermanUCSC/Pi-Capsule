@@ -2,7 +2,10 @@ var buttons = {
     capsule: document.getElementById('menu-capsule'),
     entry: document.getElementById('menu-entry'),
     schedule: document.getElementById('menu-schedule'),
-    settings: document.getElementById('menu-settings')
+    settings: document.getElementById('menu-settings'),
+
+    saveentry: document.getElementById('saveentry-button'),
+    deleteentry: document.getElementById('deleteentry-button'),
 };
 
 var sections = {
@@ -156,4 +159,33 @@ buttons.entry.addEventListener('click', function() {
     buttons.entry.style.color = '#000000';
     sections.capsule.style.display = 'none';
     sections.entry.style.display = 'grid';
+});
+
+
+// listeners for entry buttons
+// # print the note
+// @app.route('/entry', methods=['POST'])
+// def entry():
+//     entry = request.json['entry']
+//     id = request.json['id']
+//     print(entry, id)
+//     return jsonify(success=True, message="Entry saved.")
+
+buttons.saveentry.addEventListener('click', function() {
+    // get entry text
+    var entry = document.getElementById('entry-text').value;
+    var id = document.getElementById('id-field').innerHTML;
+
+    fetch('/entry', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ entry: entry, id: id })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+    })
+    .catch(error => console.error('Error:', error));
 });
