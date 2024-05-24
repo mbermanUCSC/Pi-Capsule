@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIME CAPSULE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>TIME CAPSULE</h1>
+        <h2 id="id-field">{{ capsule_id }}</h2>
+    </div>
+    <div class="toolbar">
+        <!-- Time and Date display -->
+        <div id="time-date">
+            <p><span id="current-time">{{ current_time }}</span></p>
+            <p><span id="current-date">{{ current_date }}</span></p>
+        </div>
+
+        <!-- New Note Button -->
+        <div class="button-container">
+            <button id="power-button">Ø</button>
+            <button id="restart-button">↻</button>
+        </div>
+        
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

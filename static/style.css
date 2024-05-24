@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'NASA21';
+    src: url('/static/fonts/NASA21.ttf') format('truetype');
+}
+
+body {
+    font-family: 'NASA21';
+}
+
+.header{
+    text-align: center;
+    font-family: 'NASA21';
+    font-size: 45px;
+}
+
+.toolbar{
+    background-color: #b1b1b10c;
+    text-align: left;
+    padding: 100px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-radius: 15px;
+    font-size: 18px;
+
+    position: relative;
+    left: -100%;
+    transition: left 4s ease;
+
+    /* grid */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.button-container{
+    text-align: center;
+    display: grid;
+    /* space between buttons */
+    grid-gap: 20px;
+}
+
+button{
+    font-family: 'NASA21';
+    font-size: 13px;
+    border-radius: 5px;
+    background-color: #51515111;
+    border: 2px solid #b1b1b10c;
+    transition: background-color 0.5s, color 0.5s;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #b1b1b10c;
+    color: black;
+}
