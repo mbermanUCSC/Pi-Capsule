@@ -62,6 +62,7 @@ body {
     /* grid */
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .capsule .button-container{
@@ -69,6 +70,15 @@ body {
     display: grid;
     /* space between buttons */
     grid-gap: 20px;
+}
+
+
+canvas{
+    margin-top: 50px;
+    border-radius: 15px;
+    border: 2px solid #b1b1b10c;
+    background-color: #b1b1b10c;
+    width: 200%;
 }
 
 

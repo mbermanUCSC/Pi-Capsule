@@ -13,6 +13,7 @@ var sections = {
     entry: document.getElementById('entry'),
 };
 
+var data_canvas = document.getElementById('data-canvas');
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -78,6 +79,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setInterval(updateTime, 1000); // Update every second
     updateTime(); // Also update immediately on page load
+
+    // fill the canvas with some random circles
+    var ctx = data_canvas.getContext('2d');
+    var colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+
+    for (var i = 0; i < 100; i++) {
+        var x = Math.random() * data_canvas.width;
+        var y = Math.random() * data_canvas.height;
+        var radius = Math.random() * 50;
+        var color = colors[Math.floor(Math.random() * colors.length)];
+
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
+
 });
 
 
