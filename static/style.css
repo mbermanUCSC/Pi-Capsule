@@ -54,3 +54,21 @@ button:hover{
     background-color: #b1b1b10c;
     color: black;
 }
+
+
+/* mobile */
+@media only screen and (max-width: 600px) {
+    .header{
+        font-size: 30px;
+    }
+    .toolbar{
+        padding: 50px;
+        margin-left: 50px;
+        margin-right: 50px;
+        font-size: 15px;
+    }
+
+    .button-container{
+        grid-template-columns: 1fr;
+    }
+}
