@@ -92,9 +92,9 @@ document.getElementById('power-button').addEventListener('click', function() {
     .catch(error => console.error('Error:', error));
 });
 
-document.getElementById('restart-button').addEventListener('click', function() {
+document.getElementById('reboot-button').addEventListener('click', function() {
     
-        fetch('/restart', { method: 'POST' })
+        fetch('/reboot', { method: 'POST' })
         .then(response => response.json())
         .then(data => {
             // console.log(data);
