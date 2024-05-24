@@ -13,6 +13,34 @@ body {
     font-size: 45px;
 }
 
+
+.menu{
+    /* horizontal menu, one line */
+    display: flex;
+    justify-content: center;
+    /* space between menu items */
+    gap: 20px;
+    font-size: 10px;
+    /* color: #b8b8b8; */
+    color: white;
+    cursor: pointer;
+}
+
+.menu h3{
+    transition: color 5.0s;
+}
+
+/* hover */
+.menu h3:hover{
+    transition: color 0.5s;
+    color: rgb(2, 2, 2);
+}
+
+/* unhover */
+.menu h3:not(:hover){
+    transition: color 2.0s;
+}
+
 .toolbar{
     background-color: #b1b1b10c;
     text-align: left;
@@ -32,6 +60,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
 
 .button-container{
     text-align: center;

@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    var capsule_btn = document.getElementById('menu-capsule');
+    var notes_btn = document.getElementById('menu-notes');
+    var schedule_btn = document.getElementById('menu-schedule');
+    var settings_btn = document.getElementById('menu-settings');
+
+
+
+
     // scroll to top when page is loaded
     window.scrollTo(0, 0);
 
@@ -9,8 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // listen for scroll events
     window.addEventListener('scroll', function() {
-        hasScrolled = true;
+        if (hasScrolled) return;
         document.querySelector('.toolbar').style.left = '0';  // Reset left to bring into view
+        document.querySelector('.menu').style.color = '#b8b8b8';
+        capsule_btn.style.color = '#000000';
+
+        hasScrolled = true;
     });
 
     // number jumble effect
@@ -25,6 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!hasScrolled) {
             slowScrollTo(document.body.scrollHeight, 3500);  // Scroll over 1500 milliseconds
             document.querySelector('.toolbar').style.left = '0';  // Reset left to bring into view
+            document.querySelector('.menu').style.color = 'b8b8b8';
+            capsule_btn.style.color = '#000000';
         }
         
     }, 2000);  // total time 2s
@@ -103,4 +118,16 @@ document.getElementById('reboot-button').addEventListener('click', function() {
     });
 
 
-    
+// listeners for menu text to act as buttons
+// first get them all because we need to reference colors for each
+var menuItems = document.querySelectorAll('.menu-item');
+
+menuItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+        menuItems.forEach(function(item) {
+            item.style.color = '#b8b8b8';
+        });
+        item.style.color = '#000000';
+    });
+});
+
