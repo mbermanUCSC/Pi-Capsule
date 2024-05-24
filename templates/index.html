@@ -14,23 +14,33 @@
 
     <div class="menu">
         <h3 class="menu-item" id="menu-capsule">CAPSULE</h3>
-        <h3 class="menu-item" id="menu-notes">NOTES</h3>
+        <h3 class="menu-item" id="menu-entry">ENTRY</h3>
         <h3 class="menu-item" id="menu-schedule">SCHEDULE</h3>
         <h3 class="menu-item" id="menu-settings">SETTINGS</h3>
     </div>
 
 
-    <div id="toolbar" class="toolbar">
-        <!-- Time and Date display -->
-        <div id="time-date">
-            <p><span id="current-time">{{ current_time }}</span></p>
-            <p><span id="current-date">{{ current_date }}</span></p>
+    <div id="content-container" class="content-container">
+        <div id="capsule" class="capsule">
+            <!-- Time and Date display -->
+            <div id="time-date">
+                <p><span id="current-time">{{ current_time }}</span></p>
+                <p><span id="current-date">{{ current_date }}</span></p>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-container">
+                <button id="power-button">Ø</button>
+                <button id="reboot-button">↻</button>
+            </div>
         </div>
 
-        <!-- Buttons -->
-        <div class="button-container">
-            <button id="power-button">Ø</button>
-            <button id="reboot-button">↻</button>
+        <div id="entry" style="left: 0;" class="capsule">
+            <!-- Buttons -->
+            <div class="button-container">
+                <button id="power-button">Ø</button>
+                <button id="reboot-button">↻</button>
+            </div>
         </div>
     </div>
 

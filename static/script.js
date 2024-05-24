@@ -1,12 +1,20 @@
+var buttons = {
+    capsule: document.getElementById('menu-capsule'),
+    entry: document.getElementById('menu-entry'),
+    schedule: document.getElementById('menu-schedule'),
+    settings: document.getElementById('menu-settings')
+};
+
+var sections = {
+    capsule: document.getElementById('capsule'),
+    entry: document.getElementById('entry'),
+};
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
-    var capsule_btn = document.getElementById('menu-capsule');
-    var notes_btn = document.getElementById('menu-notes');
-    var schedule_btn = document.getElementById('menu-schedule');
-    var settings_btn = document.getElementById('menu-settings');
-
-
-
+    // set all but capsule to display none
+    sections.entry.style.display = 'none';
 
     // scroll to top when page is loaded
     window.scrollTo(0, 0);
@@ -19,9 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // listen for scroll events
     window.addEventListener('scroll', function() {
         if (hasScrolled) return;
-        document.querySelector('.toolbar').style.left = '0';  // Reset left to bring into view
+        document.querySelector('.capsule').style.left = '0';  // Reset left to bring into view
         document.querySelector('.menu').style.color = '#b8b8b8';
-        capsule_btn.style.color = '#000000';
+        buttons.capsule.style.color = '#000000';
 
         hasScrolled = true;
     });
@@ -36,10 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
         id.innerHTML = finalId; 
         
         if (!hasScrolled) {
-            slowScrollTo(document.body.scrollHeight, 3500);  // Scroll over 1500 milliseconds
-            document.querySelector('.toolbar').style.left = '0';  // Reset left to bring into view
+            // scroll to top of capsule section
+            slowScrollTo(sections.capsule.offsetHeight, 2000);
+            document.querySelector('.capsule').style.left = '0';  // Reset left to bring into view
             document.querySelector('.menu').style.color = 'b8b8b8';
-            capsule_btn.style.color = '#000000';
+            buttons.capsule.style.color = '#000000';
         }
         
     }, 2000);  // total time 2s
@@ -131,3 +140,20 @@ menuItems.forEach(function(item) {
     });
 });
 
+
+// listeners for menu buttons
+buttons.capsule.addEventListener('click', function() {
+    document.querySelector('.capsule').style.left = '0';
+    document.querySelector('.menu').style.color = '#b8b8b8';
+    buttons.capsule.style.color = '#000000';
+    sections.capsule.style.display = 'grid';
+    sections.entry.style.display = 'none';
+});
+
+buttons.entry.addEventListener('click', function() {
+    document.querySelector('.capsule').style.left = '-100%';
+    document.querySelector('.menu').style.color = '#b8b8b8';
+    buttons.entry.style.color = '#000000';
+    sections.capsule.style.display = 'none';
+    sections.entry.style.display = 'grid';
+});

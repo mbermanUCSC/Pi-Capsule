@@ -41,10 +41,17 @@ body {
     transition: color 2.0s;
 }
 
-.toolbar{
+.content-container{
+    /* for constant sizing */
+   min-height: 100vh; 
+
+}
+
+
+.capsule{
     background-color: #b1b1b10c;
     text-align: left;
-    padding: 100px;
+    padding: 60px;
     margin-left: 200px;
     margin-right: 200px;
     margin-top: 50px;
@@ -55,6 +62,7 @@ body {
     position: relative;
     left: -100%;
     transition: left 4s ease;
+    
 
     /* grid */
     display: grid;
