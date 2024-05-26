@@ -43,14 +43,27 @@
         </div>
 
         <div id="entry" style="left: 0;" class="entry">
-            <!-- Buttons -->
-            <div class="button-container">
-                <button id="saveentry-button">+</button>
-                <button id="deleteentry-button">x</button>
+            <!-- file upload -->
+            <div id="file-upload" class="file-upload">
+                <h2>UPLOAD FILE</h2>
+                <input id="file-input" type="file" accept="image/*, video/*, audio/*">
+                <button id="upload-button">UPLOAD</button>
             </div>
-            <!-- text field -->
-            <div id="entry-field" class="entry-field">
-                <textarea id="entry-text" class="entry-text" placeholder="..."></textarea>
+
+
+            <div id="note" style="" class="note">
+                <h2>NOTE</h2>
+                <!-- Note title entry -->
+                <input id="note-title" class="note-title" type="text" placeholder="Title">
+                <!-- Buttons -->
+                <div class="button-container">
+                    <button id="saveentry-button">+</button>
+                    <button id="deleteentry-button">x</button>
+                </div>
+                <!-- text field -->
+                <div id="note-field" class="note-field">
+                    <textarea id="note-text" class="note-text" placeholder="..."></textarea>
+                </div>
             </div>
         </div>
     </div>

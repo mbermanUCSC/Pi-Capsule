@@ -14,11 +14,16 @@ var sections = {
 };
 
 var data_canvas = document.getElementById('data-canvas');
+var note_text = document.getElementById('note-text');
+var note_title = document.getElementById('note-title');
 
 document.addEventListener('DOMContentLoaded', function() {
 
     // set all but capsule to display none
     sections.entry.style.display = 'none';
+
+    // turn off delete button until user starts typing
+    buttons.deleteentry.disabled = true;
 
     // scroll to top when page is loaded
     window.scrollTo(0, 0);
@@ -80,21 +85,21 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updateTime, 1000); // Update every second
     updateTime(); // Also update immediately on page load
 
-    // fill the canvas with some random circles
-    var ctx = data_canvas.getContext('2d');
-    var colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+    // // fill the canvas with some random circles
+    // var ctx = data_canvas.getContext('2d');
+    // var colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
 
-    for (var i = 0; i < 100; i++) {
-        var x = Math.random() * data_canvas.width;
-        var y = Math.random() * data_canvas.height;
-        var radius = Math.random() * 50;
-        var color = colors[Math.floor(Math.random() * colors.length)];
+    // for (var i = 0; i < 100; i++) {
+    //     var x = Math.random() * data_canvas.width;
+    //     var y = Math.random() * data_canvas.height;
+    //     var radius = Math.random() * 50;
+    //     var color = colors[Math.floor(Math.random() * colors.length)];
 
-        ctx.beginPath();
-        ctx.arc(x, y, radius, 0, 2 * Math.PI);
-        ctx.fillStyle = color;
-        ctx.fill();
-    }
+    //     ctx.beginPath();
+    //     ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    //     ctx.fillStyle = color;
+    //     ctx.fill();
+    // }
 
 });
 
@@ -132,9 +137,10 @@ document.getElementById('power-button').addEventListener('click', function() {
     fetch('/power-off', { method: 'POST' })
     .then(response => response.json())
     .then(data => {
-        // console.log(data);
+        alert("Shutting down...");
     })
     .catch(error => console.error('Error:', error));
+    
 });
 
 document.getElementById('reboot-button').addEventListener('click', function() {
@@ -142,7 +148,7 @@ document.getElementById('reboot-button').addEventListener('click', function() {
         fetch('/reboot', { method: 'POST' })
         .then(response => response.json())
         .then(data => {
-            // console.log(data);
+            alert("Rebooting...");
         })
         .catch(error => console.error('Error:', error));
     });
@@ -191,19 +197,39 @@ buttons.entry.addEventListener('click', function() {
 
 buttons.saveentry.addEventListener('click', function() {
     // get entry text
-    var entry = document.getElementById('entry-text').value;
-    var id = document.getElementById('id-field').innerHTML;
 
-    fetch('/entry', {
+    fetch('/note-entry', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ entry: entry, id: id })
+        body: JSON.stringify({ entry: note_text.value, title: note_title.value})
     })
     .then(response => response.json())
     .then(data => {
-        // console.log(data);
+        alert("Entry saved.");
+        note_text.value = '';
+        note_title.value = '';
+        buttons.deleteentry.disabled = true;
     })
     .catch(error => console.error('Error:', error));
+});
+
+
+// when the user starts typing in the note field, enable the delete button
+note_text.addEventListener('input', function() {
+    buttons.deleteentry.disabled = false;
+    buttons.deleteentry.style.cursor = 'pointer';
+    // if empty, disable the delete button
+    if (note_text.value === '') {
+        buttons.deleteentry.disabled = true;
+    } 
+});
+
+
+
+// clear the note field and disable the delete button
+buttons.deleteentry.addEventListener('click', function() {
+    note_text.value = '';
+    buttons.deleteentry.disabled = true;
 });

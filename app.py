@@ -35,13 +35,13 @@ def reboot():
         return jsonify(success=True, message="System is rebooting.")
     except subprocess.CalledProcessError:
         return jsonify(success=False, message="Failed to reboot."), 500
-
+    
 # print the note
-@app.route('/entry', methods=['POST'])
+@app.route('/note-entry', methods=['POST'])
 def entry():
     entry = request.json['entry']
-    id = request.json['id']
-    print(entry, id)
+    title = request.json['title']
+    print(entry, title)
     return jsonify(success=True, message="Entry saved.")
 
 if __name__ == '__main__':
