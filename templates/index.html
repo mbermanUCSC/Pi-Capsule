@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <!-- Title -->
     <div class="header">
         <h1>TIME CAPSULE</h1>
         <h2 id="id-field">{{ capsule_id }}</h2>
     </div>
 
+    <!-- Menu -->
     <div class="menu">
         <h3 class="menu-item" id="menu-capsule">CAPSULE</h3>
         <h3 class="menu-item" id="menu-entry">ENTRY</h3>
@@ -19,8 +21,10 @@
         <h3 class="menu-item" id="menu-settings">SETTINGS</h3>
     </div>
 
-
+    <!-- Content -->
     <div id="content-container" class="content-container">
+
+        <!-- Capsule page -->
         <div id="capsule" class="capsule">
             <!-- Time and Date display -->
             <div id="time-date">
@@ -33,17 +37,13 @@
                 <button id="power-button">Ø</button>
                 <button id="reboot-button">↻</button>
             </div>
-
-            <!-- canvas -->
-            <!-- <div id="canvas" class="canvas">
-                <canvas id="data-canvas" class="data-canvas"></canvas>
-            </div> -->
-
-            
         </div>
 
+
+        <!-- Entry page -->
         <div id="entry" style="left: 0;" class="entry">
-            <!-- file upload -->
+
+            <!-- File upload -->
             <div id="file-upload" class="file-upload">
                 <h2>UPLOAD FILE</h2>
                 <input id="file-input" type="file" accept="image/*, video/*, audio/*">
@@ -51,6 +51,7 @@
             </div>
 
 
+            <!-- Entry list -->
             <div id="note" style="" class="note">
                 <h2>NOTE</h2>
                 <!-- Note title entry -->
@@ -61,9 +62,7 @@
                     <button id="deleteentry-button">x</button>
                 </div>
                 <!-- text field -->
-                <div id="note-field" class="note-field">
-                    <textarea id="note-text" class="note-text" placeholder="..."></textarea>
-                </div>
+                <textarea id="note-text" class="note-text" placeholder="..."></textarea>
             </div>
         </div>
     </div>
