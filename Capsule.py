@@ -41,6 +41,7 @@ class Capsule:
 
     
     def process_file(self, file):
+        print(f"Processing file: {file}")
 
         # check the file type
         ext = os.path.splitext(file)[1].lower()
@@ -86,4 +87,5 @@ class Capsule:
 
         shutil.move(src, dest)
 
+        print(f"Moved file: {file} to {dest}")
 
