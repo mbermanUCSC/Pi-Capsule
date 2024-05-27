@@ -41,15 +41,23 @@ def reboot():
 def entry():
     entry = request.json['entry']
     title = request.json['title']
-    print(entry, title)
+    # save as text file
+    try:
+        with open(f"uploads/{title}.txt", "w") as file:
+            file.write(entry)
+    except Exception as e:
+        return jsonify(success=False, message=str(e)), 500
     return jsonify(success=True, message="Entry saved.")
 
 # file upload
 @app.route('/file-upload', methods=['POST'])
 def file_upload():
-    file = request.files['file']
-    file.save(f"uploads/{file.filename}")
-    return jsonify(success=True, message="File uploaded.")
+    try:
+        file = request.files['file']
+        file.save(f"uploads/{file.filename}")
+        return jsonify(success=True, message="File uploaded.")
+    except Exception as e:
+        return jsonify(success=False, message=str(e)), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
