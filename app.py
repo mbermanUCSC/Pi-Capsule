@@ -2,7 +2,12 @@ from flask import Flask, jsonify, render_template, request
 from datetime import datetime
 import subprocess
 
+from Capsule import Capsule
+
 app = Flask(__name__)
+
+capsule = Capsule()
+
 
 @app.route('/')
 def home():
@@ -45,9 +50,10 @@ def entry():
     try:
         with open(f"uploads/{title}.txt", "w") as file:
             file.write(entry)
+        capsule.uploads_scan()
+        return jsonify(success=True, message="Entry saved.")
     except Exception as e:
         return jsonify(success=False, message=str(e)), 500
-    return jsonify(success=True, message="Entry saved.")
 
 # file upload
 @app.route('/file-upload', methods=['POST'])
@@ -55,6 +61,7 @@ def file_upload():
     try:
         file = request.files['file']
         file.save(f"uploads/{file.filename}")
+        capsule.uploads_scan()
         return jsonify(success=True, message="File uploaded.")
     except Exception as e:
         return jsonify(success=False, message=str(e)), 500
