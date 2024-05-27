@@ -3,6 +3,12 @@
     src: url('/static/fonts/NASA21.ttf') format('truetype');
 }
 
+.content-container{
+    /* for constant sizing */
+   min-height: 100vh; 
+}
+
+
 body {
     font-family: 'NASA21';
 }
@@ -37,15 +43,9 @@ body {
 }
 
 
-.content-container{
-    /* for constant sizing */
-   min-height: 100vh; 
-}
-
-
+/* capsule page */
 .capsule{
     background-color: #b1b1b10c;
-    text-align: left;
     padding: 60px;
     margin-left: 200px;
     margin-right: 200px;
@@ -58,7 +58,6 @@ body {
     left: -100%;
     transition: left 4s ease;
     
-
     /* grid */
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -73,23 +72,17 @@ body {
 }
 
 
-canvas{
-    border-radius: 15px;
-    border: 2px solid #b1b1b10c;
-    background-color: #b1b1b10c;
-    width: 200%;
-}
 
-
+/* entry page */
 .entry{
     padding: 60px;
     margin-left: 200px;
     margin-right: 200px;
-    margin-top: 50px;
     margin-bottom: 50px;
     border-radius: 15px;
     font-size: 18px;
-
+    justify-content: center;
+    
     display: grid;
     /* vertical */
     grid-template-columns: 1fr;
@@ -100,25 +93,27 @@ canvas{
     background-color: #b1b1b10c;
     padding: 60px;
     border-radius: 15px;
+    display: grid;
+    /* vertical */
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
+.file-upload h2{
+    margin-left: -20px;
+}
+
+/* file upload */
 .file-upload input[type="file"]{
     font-family: 'NASA21';
-    font-size: 18px;
 }
 
 .file-upload button{
-    font-family: 'NASA21';
-    font-size: 13px;
-    border-radius: 5px;
-    padding: 20px;
-    
-
-    background-color: #51515111;
-    border: 2px solid #b1b1b10c;
-    transition: background-color 0.5s, color 0.5s;
-    cursor: pointer;
+    width: 60%;
+    height: 40px;
 }
+
+
 
 .note{
     background-color: #b1b1b10c;
@@ -126,35 +121,34 @@ canvas{
     border-radius: 15px;
     text-align: left;
     font-size: 18px;
-
     display: grid;
     /* vertical */
     grid-template-columns: 1fr;
     gap: 20px;
+    padding-bottom: 100px;
 }
 
 .note .note-title{
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
-    font-family: 'NASA21';
     width: 60%;
     margin-left: auto;
     margin-right: auto;
     /* custom border */
     border: 1px solid #9595953e;
     border-radius: 5px;
+    font-family: 'NASA21';
 }
 
 .note .note-text{
+    height: 150%;
     width: 100%;
-    height: 400%;
     border-radius: 5px;
     border: 2px solid #b1b1b10c;
     padding: 10px;
     font-size: 18px;
     /* turn off resizing */
     resize: none;
-    font-family: 'NASA21';
 }
 
 .note button{
@@ -169,10 +163,9 @@ canvas{
 }
 
 
-
+/* base style for buttons */
 button{
     font-family: 'NASA21';
-    font-size: 13px;
     border-radius: 5px;
     background-color: #51515111;
     border: 2px solid #b1b1b10c;
@@ -191,26 +184,12 @@ button:hover{
     .header{
         font-size: 30px;
     }
-    .capsule{
+    .capsule, .entry{
         padding: 30px;
         margin-left: 20px;
         margin-right: 20px;
         margin-top: 20px;
         margin-bottom: 20px;
         font-size: 15px;
-    }
-    .entry{
-        padding: 30px;
-        margin-left: 20px;
-        margin-right: 20px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        font-size: 15px;
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-    .entry textarea{
-        width: 100%;
-        height: 400px;
     }
 }
