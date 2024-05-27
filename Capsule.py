@@ -20,6 +20,7 @@ class Capsule:
         self.capsule_dir = "CAPSULE"
         self.busy = False
 
+        self.check_folder(self.upload_dir)
         self.check_folder(self.capsule_dir)
 
 
