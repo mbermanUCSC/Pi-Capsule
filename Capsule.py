@@ -20,6 +20,8 @@ class Capsule:
         self.capsule_dir = "CAPSULE"
         self.busy = False
 
+        self.check_folder(self.capsule_dir)
+
 
     def uploads_scan(self):
         if self.busy:
