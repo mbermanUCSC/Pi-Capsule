@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, send_file
 from datetime import datetime
 import subprocess
 
@@ -11,8 +11,12 @@ capsule = Capsule()
 
 @app.route('/')
 def home():
-    capsule_id = "88567"  # Example capsule ID, replace with dynamic source if needed
+    capsule_id = capsule.id
     return render_template('index.html', capsule_id=capsule_id)
+
+@app.route('/lock-status')
+def lock_status():
+    return jsonify(locked=not capsule.unlocked, capsule_id=capsule.id)
 
 @app.route('/time')
 def time():
@@ -63,6 +67,35 @@ def file_upload():
         file.save(f"uploads/{file.filename}")
         capsule.uploads_scan()
         return jsonify(success=True, message="File uploaded.")
+    except Exception as e:
+        return jsonify(success=False, message=str(e)), 500
+
+@app.route('/get-capsule-data')
+def get_capsule_data():
+    capsule_data = capsule.get_capsule()  # dictionary with capsule data
+    return jsonify(capsule_data)
+
+
+# lock capsule, compare the input with the capsule_id
+@app.route('/unlock-capsule', methods=['POST'])
+def unlock_capsule():
+    try:
+        capsule_id = request.json.get('capsule_id')
+        if capsule_id == capsule.id:
+            capsule.unlock()
+            return jsonify(success=True, message="Capsule unlocked.")
+        else:
+            return jsonify(success=False, message="Invalid capsule ID."), 403
+    except Exception as e:
+        return jsonify(success=False, message=str(e)), 500
+
+
+# download the capsule (call capsule.zip_capsule(), which returns the path to the zip file)
+@app.route('/download-capsule', methods=['POST'])
+def download_capsule():
+    try:
+        zip_file_path = capsule.zip_capsule()
+        return send_file(zip_file_path, as_attachment=True, download_name='capsule.zip')
     except Exception as e:
         return jsonify(success=False, message=str(e)), 500
 

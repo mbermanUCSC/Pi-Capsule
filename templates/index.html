@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIME CAPSULE</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="{{ url_for('static', filename='sketch.js') }}"></script> <!-- canvas script -->
 </head>
 <body>
     <!-- Title -->
@@ -17,8 +19,7 @@
     <div class="menu">
         <h3 class="menu-item" id="menu-capsule">CAPSULE</h3>
         <h3 class="menu-item" id="menu-entry">ENTRY</h3>
-        <h3 class="menu-item" id="menu-schedule">SCHEDULE</h3>
-        <h3 class="menu-item" id="menu-settings">SETTINGS</h3>
+        <h3 class="menu-item" id="menu-unlock">UNLOCK</h3>
     </div>
 
     <!-- Content -->
@@ -37,7 +38,14 @@
                 <button id="power-button">Ø</button>
                 <button id="reboot-button">↻</button>
             </div>
+            
         </div>
+
+         <!-- Canvas for interactive visualization -->
+         <div id="canvas-container" class="canvas-container">
+            <!-- The canvas will be injected here by p5.js -->
+        </div>
+
 
 
         <!-- Entry page -->
@@ -46,9 +54,8 @@
             <!-- File upload -->
             <div id="file-upload" class="file-upload">
                 <h2>UPLOAD</h2>
-                <input id="file-upload" type="file" accept=".jpg, .jpeg, .png, .gif, .bmp, .tiff, 
+                <input id="file-upload-input" type="file" accept=".jpg, .jpeg, .png, .gif, .bmp, .tiff, 
                 .mp4, .mov, .m4v, .mkv, .avi, .mp3, .wav, .m4a, .aac, .flac, .ogg, .pdf, .doc, .txt">
-
                 <button id="submit-file">UPLOAD</button>
             </div>
 
@@ -66,6 +73,17 @@
                 <!-- text field -->
                 <textarea id="note-text" class="note-text" placeholder="..."></textarea>
             </div>
+        </div>
+   
+
+        <!-- Unlock page -->
+        <div id="unlock" class="unlock" style="left: 0;">
+            <h2>UNLOCK</h2>
+            <p>Enter the capsule id to confirm the unlock. Once unlocked, the data can be downloaded, and the device can be reset.</p>
+            <p>NOTE* Once unlocked, no more data can be added!</p>
+            <input id="unlock-input" type="text" placeholder="enter capsule id">
+            <button id="unlock-button">UNLOCK</button>
+            <button id="download-button" style="display: none;">DOWNLOAD</button>
         </div>
     </div>
 

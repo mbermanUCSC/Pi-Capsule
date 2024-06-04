@@ -3,17 +3,20 @@ document.addEventListener('DOMContentLoaded', function() {
         buttons: {
             capsule: document.getElementById('menu-capsule'),
             entry: document.getElementById('menu-entry'),
-            schedule: document.getElementById('menu-schedule'),
-            settings: document.getElementById('menu-settings'),
+            unlock: document.getElementById('menu-unlock'),
             saveEntry: document.getElementById('saveentry-button'),
             deleteEntry: document.getElementById('deleteentry-button'),
             power: document.getElementById('power-button'),
             reboot: document.getElementById('reboot-button'),
-            submitFile: document.getElementById('submit-file')
+            submitFile: document.getElementById('submit-file'),
+            unlockFiles: document.getElementById('unlock-button'),
+            downloadFiles: document.getElementById('download-button')
         },
         sections: {
             capsule: document.getElementById('capsule'),
-            entry: document.getElementById('entry')
+            entry: document.getElementById('entry'),
+            canvasContainer: document.getElementById('canvas-container'),
+            unlock: document.getElementById('unlock')
         },
         dataCanvas: document.getElementById('data-canvas'),
         noteText: document.getElementById('note-text'),
@@ -22,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
         dateElement: document.getElementById('current-date'),
         idField: document.getElementById('id-field'),
         menuItems: document.querySelectorAll('.menu-item'),
-        fileUpload: document.getElementById('file-upload')
+        fileUpload: document.getElementById('file-upload-input'),
+        unlockInput: document.getElementById('unlock-input')
     };
 
     // Initial setup
@@ -32,8 +36,33 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
 
     function initializeUI() {
+        // check if the capsule is locked
+        fetch('/lock-status')  // Ensure the endpoint matches your Flask route
+            .then(response => response.json())
+            .then(data => {
+                if (data.locked) {
+                    console.log("Capsule is locked.");
+                }
+                else {
+                    console.log("Capsule is unlocked.");
+                    uiElements.buttons.unlockFiles.disabled = true;
+                    uiElements.buttons.unlockFiles.style.cursor = 'default';
+                    uiElements.buttons.downloadFiles.style.display = 'block';
+                    uiElements.unlockInput.disabled = true;
+                    uiElements.unlockInput.value = data.capsule_id;
+                    // hide the entry menu button
+                    uiElements.menuItems[1].style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
         uiElements.sections.entry.style.display = 'none';
+        uiElements.sections.unlock.style.display = 'none';
         uiElements.buttons.deleteEntry.disabled = true;
+        uiElements.buttons.deleteEntry.style.cursor = 'default';
+        uiElements.sections.canvasContainer.style.visibility = 'hidden';
+        uiElements.sections.canvasContainer.style.opacity = '0';
+        
         window.scrollTo(0, 0);
     }
 
@@ -54,12 +83,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setupNavigationListeners();
         setupEntryListeners();
+        setupUnlockListeners();
     }
 
     function handleScroll() {
         const hasScrolled = false;
         if (!hasScrolled) {
             document.querySelector('.capsule').style.left = '0';
+            uiElements.sections.canvasContainer.style.visibility = 'visible';
+            uiElements.sections.canvasContainer.style.opacity = '1';
             document.querySelector('.menu').style.color = '#b8b8b8';
             uiElements.buttons.capsule.style.color = '#000000';
         }
@@ -77,13 +109,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupNavigationListeners() {
         uiElements.buttons.capsule.addEventListener('click', () => switchSection('capsule'));
         uiElements.buttons.entry.addEventListener('click', () => switchSection('entry'));
+        uiElements.buttons.unlock.addEventListener('click', () => switchSection('unlock'));
     }
 
     function switchSection(section) {
-        ['capsule', 'entry'].forEach(sec => {
+        ['capsule', 'entry', 'unlock'].forEach(sec => {
             uiElements.sections[sec].style.display = sec === section ? 'grid' : 'none';
         });
         document.querySelector('.capsule').style.left = section === 'entry' ? '-100%' : '0';
+        // show canvas only when capsule is selected
+        uiElements.sections.canvasContainer.style.display = section === 'capsule' ? 'flex' : 'none';
     }
 
     function setupEntryListeners() {
@@ -92,6 +127,11 @@ document.addEventListener('DOMContentLoaded', function() {
         uiElements.buttons.saveEntry.addEventListener('click', saveEntry);
         uiElements.noteText.addEventListener('input', handleNoteInput);
         uiElements.buttons.deleteEntry.addEventListener('click', clearEntry);
+    }
+
+    function setupUnlockListeners() {
+        uiElements.buttons.unlockFiles.addEventListener('click', unlockFiles);
+        uiElements.buttons.downloadFiles.addEventListener('click', downloadFiles);
     }
 
     function submitFile() {
@@ -105,6 +145,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }).then(response => response.json()).then(data => {
             alert('File uploaded.');
         }).catch(error => console.error('Error:', error));
+
+        uiElements.fileUpload.value = '';
+        
     }
 
 
@@ -124,6 +167,49 @@ document.addEventListener('DOMContentLoaded', function() {
         uiElements.buttons.deleteEntry.disabled = true;
     }
 
+    function unlockFiles() {
+        const unlockData = { capsule_id: uiElements.unlockInput.value };
+    
+        fetch('/unlock-capsule', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(unlockData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Capsule unlocked successfully.");
+                alert(data.message);
+                uiElements.buttons.unlockFiles.disabled = true;
+                uiElements.buttons.unlockFiles.style.cursor = 'default';
+                uiElements.buttons.downloadFiles.style.display = 'block';
+                uiElements.unlockInput.disabled = true;
+                // hide the entry menu button
+                uiElements.menuItems[1].style.display = 'none';
+            } else {
+                console.log("Failed to lock capsule.");
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function downloadFiles() {
+        fetch('/download-capsule', { method: 'POST' })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'capsule.zip';
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+        
     function postAction(url, message) {
         fetch(url, { method: 'POST' })
             .then(response => response.json())

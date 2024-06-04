@@ -71,6 +71,14 @@ body {
     grid-gap: 20px;
 }
 
+.canvas-container{
+    /* center */
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    justify-content: center;
+    transition: visibility 4s, opacity 4s ease-in-out;
+}
 
 
 /* entry page */
@@ -160,6 +168,22 @@ body {
     text-align: center;
     display: flex;
     grid-gap: 20px;
+}
+
+
+.unlock{
+    padding: 60px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-bottom: 50px;
+    border-radius: 15px;
+    font-size: 18px;
+    justify-content: center;
+    
+    display: grid;
+    /* vertical */
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
 
