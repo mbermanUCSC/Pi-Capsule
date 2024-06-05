@@ -28,6 +28,14 @@ function drawCapsule() {
     let monthRadius = 40;
     let fileRadius = 20;
 
+    // if empty, display a message
+    if (Object.keys(capsuleData).length === 0) {
+        textSize(20);
+        fill('red');
+        text('No data yet!', centerX, centerY);
+        return;
+    }
+
     Object.keys(capsuleData).forEach((year, i) => {
         // Draw the year in the center
         ellipseAndText(centerX, centerY, yearRadius, year, 'magenta');
