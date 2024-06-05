@@ -1,13 +1,17 @@
 from flask import Flask, jsonify, render_template, request, send_file
-from datetime import datetime
+from datetime import datetime, timedelta
 import subprocess
+import random
+
 
 from Capsule import Capsule
+from Camera import capture_and_save_image
 
 app = Flask(__name__)
 
 capsule = Capsule()
 
+next_image_time = None  # used to schedule image captures
 
 @app.route('/')
 def home():
@@ -22,6 +26,21 @@ def lock_status():
 def time():
     # 12 hour with seconds
     current_time = datetime.now().strftime("%I:%M:%S %p")
+    try:
+        # if next_image_time is None, set it to a random time in the future (between 1 and 10 hours)
+        global next_image_time
+        if next_image_time is None:
+            capture_and_save_image()
+            capsule.uploads_scan()
+            next_image_time = datetime.now() + timedelta(hours=random.randint(1, 10))
+        # if next_image_time is set, and it's in the past, capture an image
+        elif datetime.now() > next_image_time:
+            capture_and_save_image()
+            capsule.uploads_scan()
+            next_image_time = None
+    except Exception as e:
+        print(f"Failed to capture image: {e}")
+
     return jsonify(current_time=current_time)
 
 @app.route('/date')
