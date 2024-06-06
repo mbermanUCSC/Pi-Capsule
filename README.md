@@ -21,24 +21,24 @@ I made this project to challenge myself to work outside of a strictly software e
 # Credits
 Hardware used:
 
-Raspberry Pi Zero 2 W - https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
+. Raspberry Pi Zero 2 W - https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
 
-PiSugar S - https://www.pisugar.com/
+. PiSugar S - https://www.pisugar.com/
 
-Arducam - https://www.arducam.com/
+. Arducam - https://www.arducam.com/
 
-Dorhea DS3231 RTC - https://www.amazon.com/Dorhea-DS3231-Module-Memory-Raspberry/dp/B08X4H3NBR?th=1
+. Dorhea DS3231 RTC - https://www.amazon.com/Dorhea-DS3231-Module-Memory-Raspberry/dp/B08X4H3NBR?th=1
 
 
  <br />
 Font:
 
-NASA21 - https://www.dafont.com/nasa21.font
+. NASA21 - https://www.dafont.com/nasa21.font
 
 
  <br />
 Software:
 
-Python for time capsule logic and flask server
+. Python for time capsule logic and flask server
 
-HTML, CSS, and JavaScript for web interface
+. HTML, CSS, and JavaScript for web interface
