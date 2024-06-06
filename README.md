@@ -30,13 +30,13 @@ Arducam - https://www.arducam.com/
 Dorhea DS3231 RTC - https://www.amazon.com/Dorhea-DS3231-Module-Memory-Raspberry/dp/B08X4H3NBR?th=1
 
 
-
+ <br />
 Font:
 
 NASA21 - https://www.dafont.com/nasa21.font
 
 
-
+ <br />
 Software:
 
 Python for time capsule logic and flask server
